@@ -1,3 +1,4 @@
+import { signInWithGoogle } from "./firebase";
 import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import Home from './pages/Home';
@@ -26,87 +27,72 @@ function Navbar() {
   const location = useLocation();
 
   const navLinks = [
-    { name: t.nav.home, path: '/', icon: Star },
-    { name: t.nav.bio, path: '/biography', icon: BookOpen },
-    { name: t.nav.gallery, path: '/gallery', icon: Camera },
-    { name: t.nav.relationships, path: '/relationships', icon: Heart },
-    { name: t.nav.quotes, path: '/quotes', icon: Quote },
-    { name: t.nav.extra, path: '/extra', icon: Info },
+    { name: t.nav.home, path: '/' },
+    { name: t.nav.bio, path: '/biography' },
+    { name: t.nav.gallery, path: '/gallery' },
+    { name: t.nav.relationships, path: '/relationships' },
+    { name: t.nav.quotes, path: '/quotes' },
+    { name: t.nav.extra, path: '/extra' },
   ];
 
   return (
     <nav className="fixed top-0 left-0 w-full z-50 px-6 py-4">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
-        <Link to="/" className="text-2xl font-serif font-semibold tracking-widest text-mai-beige drop-shadow-[0_0_10px_rgba(216,180,254,0.5)]">
+
+        <Link to="/" className="text-2xl font-serif font-semibold tracking-widest text-mai-beige">
           MAI SAKURAJIMA
         </Link>
 
-        {/* Desktop Nav */}
-        <div className="hidden md:flex items-center space-x-8">
+        {/* Desktop */}
+        <div className="hidden md:flex items-center space-x-6">
           {navLinks.map((link) => (
-            <Link
-              key={link.path}
-              to={link.path}
-              className={`text-sm uppercase tracking-widest transition-all hover:text-mai-sunset hover:scale-110 ${
-                location.pathname === link.path ? 'text-mai-sunset' : 'text-white/70'
-              }`}
-            >
+            <Link key={link.path} to={link.path}>
               {link.name}
             </Link>
           ))}
-          
+
+          {/* 🔥 КНОПКА ВХОДА */}
+          <button
+            onClick={signInWithGoogle}
+            className="px-4 py-2 rounded-full bg-white/10 hover:bg-white/20 transition"
+          >
+            Войти
+          </button>
+
+          {/* язык */}
           <button 
             onClick={() => setLang(lang === 'ru' ? 'en' : 'ru')}
-            className="flex items-center space-x-2 glass px-3 py-1 rounded-full text-xs uppercase tracking-tighter hover:bg-white/20 transition-colors"
-          >
-            <Globe size={14} />
-            <span>{lang === 'ru' ? 'EN' : 'RU'}</span>
-          </button>
-        </div>
-
-        {/* Mobile Toggle */}
-        <div className="flex items-center space-x-4 md:hidden">
-           <button 
-            onClick={() => setLang(lang === 'ru' ? 'en' : 'ru')}
-            className="glass px-2 py-1 rounded-full text-[10px]"
           >
             {lang === 'ru' ? 'EN' : 'RU'}
           </button>
-          <button className="text-white" onClick={() => setIsOpen(!isOpen)}>
-            {isOpen ? <X /> : <Menu />}
+        </div>
+
+        {/* Mobile */}
+        <div className="md:hidden">
+          <button onClick={() => setIsOpen(!isOpen)}>
+            меню
           </button>
         </div>
+
       </div>
 
+      {isOpen && (
+        <div className="mt-4 flex flex-col items-center space-y-4">
+          {navLinks.map((link) => (
+            <Link key={link.path} to={link.path}>
+              {link.name}
+            </Link>
+          ))}
 
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="absolute top-full left-0 w-full glass md:hidden py-6 flex flex-col items-center space-y-6"
-          >
-            {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                onClick={() => setIsOpen(false)}
-                className={`text-lg font-serif tracking-widest ${
-                  location.pathname === link.path ? 'text-mai-sunset' : 'text-white'
-                }`}
-              >
-                {link.name}
-              </Link>
-            ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
+          {/* 🔥 КНОПКА ВХОДА МОБИЛКА */}
+          <button onClick={signInWithGoogle}>
+            Войти
+          </button>
+        </div>
+      )}
     </nav>
   );
 }
-
 function PageWrapper({ children }: { children: React.ReactNode }) {
   return (
     <motion.main

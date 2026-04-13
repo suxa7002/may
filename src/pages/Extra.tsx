@@ -1,9 +1,11 @@
 import { motion } from 'motion/react';
 import { Info, Coffee, History, MessageCircle } from 'lucide-react';
 import { useTranslation } from '../App';
+import { useImages } from '../context/ImageContext';
 
 export default function Extra() {
   const { t, lang } = useTranslation();
+  const { mainImages } = useImages();
   
   return (
     <div className="space-y-32">
@@ -39,8 +41,8 @@ export default function Extra() {
             className="relative aspect-square rounded-2xl overflow-hidden glass cursor-pointer perspective-1000 shadow-xl"
           >
             <img 
-              src="https://static.wikia.nocookie.net/aobuta/images/5/5f/Mai_Bunny_Library.png?format=original" 
-              alt="Mai Bunny Library" 
+              src={mainImages.extraSyndrome} 
+              alt="Adolescence Syndrome" 
               className="w-full h-full object-cover opacity-40 hover:opacity-60 transition-opacity duration-500"
               referrerPolicy="no-referrer"
             />

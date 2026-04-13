@@ -1,8 +1,10 @@
 import { motion } from 'motion/react';
 import { useTranslation } from '../App';
+import { useImages } from '../context/ImageContext';
 
 export default function Biography() {
   const { t, lang } = useTranslation();
+  const { mainImages } = useImages();
   
   return (
     <div className="max-w-4xl mx-auto space-y-24">
@@ -16,8 +18,8 @@ export default function Biography() {
           className="relative aspect-[3/4] rounded-2xl overflow-hidden glass shadow-xl cursor-pointer perspective-1000"
         >
           <img 
-            src="https://static.wikia.nocookie.net/aobuta/images/3/3e/Mai_School_Uniform.png?format=original" 
-            alt="Mai Sakurajima School Uniform" 
+            src={mainImages.bioPortrait} 
+            alt="Mai Sakurajima Portrait" 
             className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity duration-500"
             referrerPolicy="no-referrer"
           />

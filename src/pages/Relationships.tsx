@@ -1,9 +1,11 @@
 import { motion } from 'motion/react';
 import { Heart, Zap, User } from 'lucide-react';
 import { useTranslation } from '../App';
+import { useImages } from '../context/ImageContext';
 
 export default function Relationships() {
   const { lang } = useTranslation();
+  const { mainImages } = useImages();
   
   return (
     <div className="space-y-24">
@@ -56,8 +58,8 @@ export default function Relationships() {
           >
             <div className="w-full h-full rounded-full overflow-hidden glass relative shadow-2xl transition-transform duration-500">
               <img 
-                src="https://static.wikia.nocookie.net/aobuta/images/9/9a/Mai_Sakuta_Train.png?format=original" 
-                alt="Mai Sakuta Train" 
+                src={mainImages.relationshipsHero} 
+                alt="Mai and Sakuta" 
                 className="w-full h-full object-cover opacity-60"
                 referrerPolicy="no-referrer"
               />

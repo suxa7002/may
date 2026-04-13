@@ -1,0 +1,54 @@
+{
+  "entities": {
+    "GalleryItem": {
+      "title": "Gallery Item",
+      "description": "An image item in the gallery",
+      "type": "object",
+      "properties": {
+        "id": { "type": "number" },
+        "titleEn": { "type": "string" },
+        "titleRu": { "type": "string" },
+        "captionEn": { "type": "string" },
+        "captionRu": { "type": "string" },
+        "url": { "type": "string" },
+        "sectionEn": { "type": "string" },
+        "sectionRu": { "type": "string" },
+        "order": { "type": "number" }
+      },
+      "required": ["id", "url", "titleEn", "titleRu"]
+    },
+    "MainImages": {
+      "title": "Main Images",
+      "description": "Main site images configuration",
+      "type": "object",
+      "properties": {
+        "homeHero": { "type": "string" },
+        "bioPortrait": { "type": "string" },
+        "relationshipsHero": { "type": "string" },
+        "extraSyndrome": { "type": "string" }
+      }
+    },
+    "Settings": {
+      "title": "App Settings",
+      "description": "Global application settings including dashboard password",
+      "type": "object",
+      "properties": {
+        "dashboardPassword": { "type": "string" }
+      }
+    }
+  },
+  "firestore": {
+    "/gallery": {
+      "schema": "GalleryItem",
+      "description": "Collection of gallery images"
+    },
+    "/config/mainImages": {
+      "schema": "MainImages",
+      "description": "Main site images configuration document"
+    },
+    "/config/settings": {
+      "schema": "Settings",
+      "description": "Global app settings"
+    }
+  }
+}

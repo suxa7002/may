@@ -1,9 +1,11 @@
 import React from 'react';
 import { motion, useMotionValue, useTransform } from 'motion/react';
 import { useTranslation } from '../App';
+import { useImages } from '../context/ImageContext';
 
 export default function Home() {
   const { t } = useTranslation();
+  const { mainImages } = useImages();
   
   // 3D Parallax effect for the hero image
   const x = useMotionValue(0);
@@ -67,8 +69,8 @@ export default function Home() {
         <div className="absolute -inset-1 bg-gradient-to-r from-mai-purple to-mai-sunset rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
         <div className="relative aspect-[16/9] w-full max-w-4xl overflow-hidden rounded-lg glass shadow-2xl transition-transform duration-500 ease-out">
           <img 
-            src="https://static.wikia.nocookie.net/aobuta/images/5/5f/Mai_Bunny_Library.png?format=original" 
-            alt="Mai Sakurajima in the Library" 
+            src={mainImages.homeHero} 
+            alt="Mai Sakurajima Hero" 
             className="w-full h-full object-cover opacity-70 group-hover:opacity-90 transition-all duration-700"
             referrerPolicy="no-referrer"
           />

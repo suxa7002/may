@@ -6,9 +6,11 @@ import Gallery from './pages/Gallery';
 import Relationships from './pages/Relationships';
 import Quotes from './pages/Quotes';
 import Extra from './pages/Extra';
-import { Menu, X, Heart, Star, Camera, Quote, Info, BookOpen, Globe } from 'lucide-react';
+import Dashboard from './pages/Dashboard';
+import { Menu, X, Heart, Star, Camera, Quote, Info, BookOpen, Globe, Settings } from 'lucide-react';
 import React, { useState, useEffect, createContext, useContext } from 'react';
 import { translations } from './translations';
+import { ImageProvider } from './context/ImageContext';
 
 const LanguageContext = createContext({
   lang: 'ru',
@@ -125,26 +127,33 @@ export default function App() {
 
   return (
     <LanguageContext.Provider value={{ lang, setLang, t }}>
-      <Router>
-        <div className="relative overflow-x-hidden perspective-1000">
-          <Navbar />
-          <AnimatePresence mode="wait">
-            <Routes>
-              <Route path="/" element={<PageWrapper><Home /></PageWrapper>} />
-              <Route path="/biography" element={<PageWrapper><Biography /></PageWrapper>} />
-              <Route path="/gallery" element={<PageWrapper><Gallery /></PageWrapper>} />
-              <Route path="/relationships" element={<PageWrapper><Relationships /></PageWrapper>} />
-              <Route path="/quotes" element={<PageWrapper><Quotes /></PageWrapper>} />
-              <Route path="/extra" element={<PageWrapper><Extra /></PageWrapper>} />
-            </Routes>
-          </AnimatePresence>
-          
-          <footer className="py-12 text-center text-white/30 text-xs tracking-widest uppercase">
-            <p>© 2026 {lang === 'ru' ? 'Посвящается девушке в костюме зайчика' : 'Dedicated to the Girl in the Bunny Suit'}</p>
-            <p className="mt-2 italic">"I want to be with you. That's my only wish."</p>
-          </footer>
-        </div>
-      </Router>
+      <ImageProvider>
+        <Router>
+          <div className="relative overflow-x-hidden perspective-1000">
+            <Navbar />
+            <AnimatePresence mode="wait">
+              <Routes>
+                <Route path="/" element={<PageWrapper><Home /></PageWrapper>} />
+                <Route path="/biography" element={<PageWrapper><Biography /></PageWrapper>} />
+                <Route path="/gallery" element={<PageWrapper><Gallery /></PageWrapper>} />
+                <Route path="/relationships" element={<PageWrapper><Relationships /></PageWrapper>} />
+                <Route path="/quotes" element={<PageWrapper><Quotes /></PageWrapper>} />
+                <Route path="/extra" element={<PageWrapper><Extra /></PageWrapper>} />
+                <Route path="/dashboard" element={<PageWrapper><Dashboard /></PageWrapper>} />
+              </Routes>
+            </AnimatePresence>
+            
+            <footer className="py-12 text-center text-white/30 text-xs tracking-widest uppercase">
+              <p>© 2026 {lang === 'ru' ? 'Посвящается девушке в костюме зайчика' : 'Dedicated to the Girl in the Bunny Suit'}</p>
+              <p className="mt-2 italic">"I want to be with you. That's my only wish."</p>
+              <Link to="/dashboard" className="mt-6 flex items-center justify-center gap-2 hover:text-mai-sunset transition-colors">
+                <Settings size={12} />
+                {lang === 'ru' ? 'Панель управления' : 'Dashboard'}
+              </Link>
+            </footer>
+          </div>
+        </Router>
+      </ImageProvider>
     </LanguageContext.Provider>
   );
 }
